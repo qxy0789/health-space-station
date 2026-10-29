@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#0d1326" />
+  <title>健康空间站 · 脑力专注训练</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="app">
+    <header id="topbar"></header>
+    <main id="view"></main>
+    <nav id="tabbar">
+      <button class="tab active" data-route="/hall"><span class="tab-ico">🏠</span><span>训练大厅</span></button>
+      <button class="tab" data-route="/records"><span class="tab-ico">📋</span><span>训练记录</span></button>
+      <button class="tab" data-route="/report"><span class="tab-ico">📊</span><span>分析报告</span></button>
+      <button class="tab" data-route="/me"><span class="tab-ico">👤</span><span>我的</span></button>
+    </nav>
+  </div>
+
+  <!-- 核心库（顺序不可乱） -->
+  <script src="js/core/meta.js"></script>
+  <script src="js/core/levels.js"></script>
+  <script src="js/core/score.js"></script>
+  <script src="js/core/stats.js"></script>
+  <script src="js/core/report.js"></script>
+  <script src="js/core/store.js"></script>
+  <script src="js/core/dom.js"></script>
+  <script src="js/core/engine.js"></script>
+  <!-- 14 个游戏 -->
+  <script src="js/games/schulte.js"></script>
+  <script src="js/games/cancel.js"></script>
+  <script src="js/games/match.js"></script>
+  <script src="js/games/trail.js"></script>
+  <script src="js/games/diff.js"></script>
+  <script src="js/games/stroop.js"></script>
+  <script src="js/games/gonogo.js"></script>
+  <script src="js/games/digit.js"></script>
+  <script src="js/games/search.js"></script>
+  <script src="js/games/nback.js"></script>
+  <script src="js/games/water.js"></script>
+  <script src="js/games/pitch.js"></script>
+  <script src="js/games/track.js"></script>
+  <script src="js/games/space.js"></script>
+  <!-- 应用外壳 -->
+  <script src="js/core/app.js"></script>
+  <script>
+    // 底部 tab 高亮与切换
+    document.getElementById('tabbar').addEventListener('click', function (e) {
+      const btn = e.target.closest('.tab');
+      if (!btn) return;
+      location.hash = btn.dataset.route;
+    });
+    window.addEventListener('hashchange', function () {
+      const cur = (location.hash.replace(/^#/, '') || '/hall');
+      document.querySelectorAll('.tab').forEach((t) => {
+        t.classList.toggle('active', t.dataset.route === cur || (cur.startsWith('/game/') && t.dataset.route === '/hall'));
+      });
+    });
+  </script>
+</body>
+</html>
